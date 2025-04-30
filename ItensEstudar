@@ -1,0 +1,10 @@
+fazer usar o spring data ao inves do DAO:
+Criando endpoint POST com Spring Boot - chat deep deek
+
+Estudar como o spring gerencia conexões com o bancos de dados - SpringData
+
+Estudar o HikariCP e implementa-lo.
+
+estudar tratamento de exceções
+Estudar autenticaçao e autorização
+implementar exceção para bad request e não autorizado.

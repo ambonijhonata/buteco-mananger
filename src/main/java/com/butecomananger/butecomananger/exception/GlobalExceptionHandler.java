@@ -1,0 +1,17 @@
+package com.butecomananger.butecomananger.exception;
+
+import com.butecomananger.butecomananger.model.Cliente;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.RestControllerAdvice;
+
+import java.sql.SQLException;
+
+@RestControllerAdvice
+public class GlobalExceptionHandler {
+
+    @ExceptionHandler(SQLException.class)
+    public ResponseEntity<String> handleSQLExcecption(SQLException ex) {
+        return ResponseEntity.badRequest().body(ex.getMessage());
+    }
+}
