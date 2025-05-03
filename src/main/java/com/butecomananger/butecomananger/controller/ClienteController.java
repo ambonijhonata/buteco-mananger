@@ -1,8 +1,8 @@
 package com.butecomananger.butecomananger.controller;
 
-import com.butecomananger.butecomananger.dao.ClienteDAO;
 import com.butecomananger.butecomananger.dto.ClienteDTO;
 import com.butecomananger.butecomananger.model.Cliente;
+import com.butecomananger.butecomananger.repository.ClienteRepository;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -15,10 +15,10 @@ import java.sql.SQLException;
 @RequestMapping("/api/cliente")
 public class ClienteController {
 
-    private final ClienteDAO clienteDAO;
+    private final ClienteRepository clienteRepository;
 
-    public ClienteController(ClienteDAO clienteDAO) {
-        this.clienteDAO = clienteDAO;
+    public ClienteController(ClienteRepository clienteRepository) {
+        this.clienteRepository = clienteRepository;
     }
 
     @PostMapping
@@ -26,7 +26,7 @@ public class ClienteController {
         Cliente cliente = new Cliente();
         cliente.setNome(clientedto.getNome());
 
-        clienteDAO.inserir(cliente);
+        cliente = clienteRepository.save(cliente);
         return ResponseEntity.ok().body(cliente);
     }
 
