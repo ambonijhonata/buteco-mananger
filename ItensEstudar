@@ -1,5 +1,11 @@
 Estudar autenticaçao e autorização
 
 estudar tratamento de exceções
+POST /users/test
+- 401 nao autorizado - token invalido, retornar 401
+- implementar controle de autenticação para ao endpoint POST /api/cliente
 
-implementar exceção para bad request e não autorizado.
+padrão de projetos builder
+Collections java
+
+verificar como deixar a chave SECRET_KEY da classe JwtTokenService em segredo ao inves de deixar no codigo quando for executar em produção
