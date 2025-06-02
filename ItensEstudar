@@ -1,9 +1,8 @@
-Estudar autenticaçao e autorização
 
 estudar tratamento de exceções
-POST /users/test
-- 401 nao autorizado - token invalido, retornar 401
 - implementar controle de autenticação para ao endpoint POST /api/cliente
+
+- novo banco
 
 padrão de projetos builder
 Collections java

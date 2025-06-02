@@ -1,5 +1,6 @@
 package com.butecomananger.butecomananger.security.config;
 
+import com.butecomananger.butecomananger.security.authentication.CustomAuthenticationEntryPoint;
 import com.butecomananger.butecomananger.security.authentication.UserAuthenticationFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -20,6 +21,9 @@ public class SecurityConfiguration {
 
     @Autowired
     private UserAuthenticationFilter userAuthenticationFilter;
+
+    @Autowired
+    private CustomAuthenticationEntryPoint authenticationEntryPoint;
 
     public static final String [] ENDPOINTS_WITH_AUTHENTICATION_NOT_REQUIRED = {
             "/users/login",
@@ -53,6 +57,7 @@ public class SecurityConfiguration {
                         .requestMatchers(ENDPOINTS_CUSTOMER).hasRole("CUSTOMER")
                 .anyRequest().denyAll()
                 )
+                .exceptionHandling(exception -> exception.authenticationEntryPoint(authenticationEntryPoint))
                 .addFilterBefore(userAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)
                 .build();
     }

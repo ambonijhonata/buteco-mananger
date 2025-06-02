@@ -1,5 +1,6 @@
 package com.butecomananger.butecomananger.security.authentication;
 
+import com.auth0.jwt.exceptions.JWTVerificationException;
 import com.butecomananger.butecomananger.model.User;
 import com.butecomananger.butecomananger.repository.UserRepository;
 import com.butecomananger.butecomananger.security.config.SecurityConfiguration;
@@ -9,10 +10,12 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.AuthenticationCredentialsNotFoundException;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
@@ -29,25 +32,27 @@ public class UserAuthenticationFilter extends OncePerRequestFilter {
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
-        //verifica se o endpoint precisa autenticação
-        if(checkIfEndpointIsNotPublic(request)){
-            String token = recoveryToken(request);
-            if(token == null) {
-                throw new BadCredentialsException("Por favor informe o token");
-            }
+        try {
 
-            if(token != null){
+            if (checkIfEndpointIsNotPublic(request)) {
+                String token = recoveryToken(request);
+                if (token == null) {
+                    throw new AuthenticationCredentialsNotFoundException("Por favor informe o token");
+                }
+
                 String subject = jwtTokenService.getSubjectFromToken(token);//pega o email do token
-                User user = userRepository.findByEmail(subject).get();
+                User user = userRepository.findByEmail(subject).orElseThrow(() -> new UsernameNotFoundException("Usuario nao encontrado"));
                 UserDetailsImpl userDetails = new UserDetailsImpl(user);
 
                 Authentication authentication = new UsernamePasswordAuthenticationToken(userDetails.getUsername(), null, userDetails.getAuthorities());
                 SecurityContextHolder.getContext().setAuthentication(authentication);
-            } else {
-                throw new RuntimeException("Informe o token na requisição");
+
             }
+
+            filterChain.doFilter(request, response);
+        } catch (JWTVerificationException e) {
+            throw new BadCredentialsException("Token inválido ou expirado", e);
         }
-        filterChain.doFilter(request, response);
     }
 
     private String recoveryToken(HttpServletRequest request) {

@@ -16,7 +16,7 @@ public class JwtTokenService {
     private static final String SECRET_KEY = "4Z^XrroxR@dWxqf$mTTKwW$!@#qGr4P";
     private static final String ISSUER = "pizzurg-api";
 
-    public String generateToken(UserDetailsImpl user) {
+    public String generateToken(UserDetailsImpl user) throws JWTCreationException {
         try {
 
             Algorithm algorithm = Algorithm.HMAC256(SECRET_KEY);
@@ -32,7 +32,7 @@ public class JwtTokenService {
         }
     }
 
-    public String getSubjectFromToken(String token) {
+    public String getSubjectFromToken(String token) throws JWTVerificationException {
         try {
             Algorithm algorithm = Algorithm.HMAC256(SECRET_KEY);
             return JWT.require(algorithm)
