@@ -34,7 +34,9 @@ public class SecurityConfiguration {
     public static final String [] ENDPOINTS_WITH_AUTHENTICATION_REQUIRED = {
             "/users/test",
             "api/cliente",
-            "api/cliente/{id}"
+            "api/cliente/{id}",
+            "/api/servico",
+            "/api/servico/{id}"
     };
 
     // Endpoints que só podem ser acessador por usuários com permissão de cliente

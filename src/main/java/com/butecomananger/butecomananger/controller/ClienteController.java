@@ -28,7 +28,6 @@ public class ClienteController {
 
     @GetMapping
     public ResponseEntity<List<Cliente>> getClientes(@RequestParam(required = false) String nome){
-        List<Cliente> clientes;
         if(nome == null){
             return ResponseEntity.ok().body(clienteService.getTodosClientes());
         }
@@ -41,5 +40,12 @@ public class ClienteController {
 
         return ResponseEntity.noContent().build();
     }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<Cliente> atualizarCliente(@PathVariable Integer id, @RequestBody ClienteDTO clienteDTO){
+        Cliente cliente = clienteService.atualizar(id, clienteDTO);
+        return ResponseEntity.ok().body(cliente);
+    }
+
 
 }
