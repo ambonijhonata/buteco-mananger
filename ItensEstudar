@@ -1,15 +1,14 @@
+- relacionamento agendamento servico
 - GETBYCLIENTE
 - GET BY periodo
 - GET BY TIPO PAGAMENTO
 - Implementar validação para não inserir dois agendamento no mesmo horario
 - validar que a data fim é maior que a data inicio
-- Fazer receber DTO e enviar DTO
+- Fazer receber DTO e enviar DTO(estudar anotação @NotNull)
 - Fazer retornar 404 quando fizer requisição pra enpoint que não existe
 
 =====ESTUDAR=====
 estudar tratamento de exceções
-
-- novo banco
 
 padrão de projetos builder
 Collections java

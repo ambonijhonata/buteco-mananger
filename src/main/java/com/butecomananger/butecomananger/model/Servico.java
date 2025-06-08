@@ -4,6 +4,8 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.Min;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "servicos")
@@ -53,4 +55,5 @@ public class Servico {
     public BigDecimal getValor() {
         return valor;
     }
+
 }

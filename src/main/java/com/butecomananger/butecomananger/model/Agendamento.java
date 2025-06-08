@@ -2,6 +2,8 @@ package com.butecomananger.butecomananger.model;
 
 import jakarta.persistence.*;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "agendamentos")
@@ -24,6 +26,18 @@ public class Agendamento {
     @JoinColumn(name = "id_pagamento", nullable = false)
     private TipoPagamento tipoPagamento;
 
+    @ManyToMany
+    @JoinTable(
+            name = "agendamento_servico",
+            joinColumns = @JoinColumn(name = "id_agendamento"),
+            inverseJoinColumns =  @JoinColumn(name = "id_servico"),
+            uniqueConstraints = @UniqueConstraint(
+                    columnNames = {"id_agendamento", "id_servico"},
+                    name = "uk_agendamento_servico"
+            )
+    )
+    private List<Servico> servicos = new ArrayList<>();
+
     public void setId(Integer id) {
         this.id = id;
     }
@@ -44,6 +58,10 @@ public class Agendamento {
         this.tipoPagamento = tipoPagamento;
     }
 
+    public void setServicos(List<Servico> servicos) {
+        this.servicos = servicos;
+    }
+
     public Integer getId() {
         return id;
     }
@@ -62,5 +80,9 @@ public class Agendamento {
 
     public TipoPagamento getTipoPagamento() {
         return tipoPagamento;
+    }
+
+    public List<Servico> getServicos() {
+        return servicos;
     }
 }
