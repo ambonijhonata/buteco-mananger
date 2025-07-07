@@ -40,7 +40,8 @@ public class SecurityConfiguration {
             "/api/tipo-pagamento",
             "/api/agendamento",
             "/api/agendamento/{id}",
-            "/api/tipo-pagamento"
+            "/api/tipo-pagamento",
+            "/api/tipo-pagamento/{id}"
     };
 
     // Endpoints que só podem ser acessador por usuários com permissão de cliente

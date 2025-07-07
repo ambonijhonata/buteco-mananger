@@ -1,3 +1,4 @@
+- refatorar para o service receber e devolver uma entidade
 - relacionamento agendamento servico
 - GETBYCLIENTE
 - GET BY periodo

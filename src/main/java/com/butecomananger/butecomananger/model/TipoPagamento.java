@@ -16,6 +16,15 @@ public class TipoPagamento {
     @Column(precision = 5, scale = 2)
     private BigDecimal taxa;
 
+    public TipoPagamento() {
+
+    }
+
+    public TipoPagamento(String descricao, BigDecimal taxa) {
+        this.descricao = descricao;
+        this.taxa = taxa;
+    }
+
     public Integer getId() {
         return id;
     }
