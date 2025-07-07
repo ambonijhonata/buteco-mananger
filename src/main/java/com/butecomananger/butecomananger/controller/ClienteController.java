@@ -4,6 +4,7 @@ import com.butecomananger.butecomananger.dto.ClienteDTO;
 import com.butecomananger.butecomananger.model.Cliente;
 import com.butecomananger.butecomananger.repository.ClienteRepository;
 import com.butecomananger.butecomananger.service.ClienteService;
+import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -21,7 +22,7 @@ public class ClienteController {
     }
 
     @PostMapping
-    public ResponseEntity<Cliente> criarCliente(@RequestBody ClienteDTO clientedto) throws SQLException {
+    public ResponseEntity<Cliente> criarCliente(@RequestBody @Valid ClienteDTO clientedto) throws SQLException {
         Cliente cliente = clienteService.criarCliente(clientedto);
         return ResponseEntity.ok().body(cliente);
     }
